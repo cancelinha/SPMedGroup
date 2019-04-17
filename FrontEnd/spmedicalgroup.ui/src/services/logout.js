@@ -1,0 +1,1 @@
+export const logout = () => localStorage.removeItem("userautent-token-spmedicalgroup");
