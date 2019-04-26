@@ -31,14 +31,15 @@ class Login extends Component {
             senha : this.state.senha
         })
         .then(data => {
+            console.log(data.status)
             if(data.status == 200) {
                 localStorage.setItem("userautent-token-spmedicalgroup", data.data.token);
                 if(parseJwt().TipoUsuario == "ADMINISTRADOR"){
-                    this.props.history.push("/Logado");
+                    this.props.history.push("/Home");
                 } else if (parseJwt().TipoUsuario == "MEDICO"){
-                    this.props.history.push("/Logado");
+                    this.props.history.push("/MedicoConsultas");
                 } else if (parseJwt().TipoUsuario == "PACIENTE"){
-                    this.props.history.push("/Logado");
+                    this.props.history.push("/PacienteConsultas");
                 }
             };
         })

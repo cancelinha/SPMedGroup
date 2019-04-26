@@ -30,10 +30,12 @@ namespace SpMedGroup.WebApi.Guilherme.Manha.SpMedGroup.WebApi.Guilherme.Manha.Co
         {
             try
             {
+                 
                 int idrecebido = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
                 string tipousuario = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Role).Value.ToString();
 
-                return Ok(ConsultaRepositorio.BuscarConsulta(idrecebido, tipousuario));
+                List<Consulta> listaConsultas = ConsultaRepositorio.BuscarConsulta(idrecebido, tipousuario);
+                return Ok(listaConsultas);
             }
             catch(SystemException ex)
             {

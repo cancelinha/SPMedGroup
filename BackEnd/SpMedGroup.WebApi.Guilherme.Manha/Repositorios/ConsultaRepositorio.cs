@@ -1,4 +1,5 @@
-﻿using SpMedGroup.WebApi.Guilherme.Manha.Domains;
+﻿using Microsoft.EntityFrameworkCore;
+using SpMedGroup.WebApi.Guilherme.Manha.Domains;
 using SpMedGroup.WebApi.Guilherme.Manha.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -55,15 +56,18 @@ namespace SpMedGroup.WebApi.Guilherme.Manha.Repositorios
             {
                 if (tipousuario == "ADMINISTRADOR")
                 {
-                    listaConsultaBuscada = ctx.Consulta.ToList();
+                    listaConsultaBuscada = ctx.Consulta.Include(c => c.IdMedicoNavigation).Include(x => x.IdStatusNavigation).ToList();
                 }
                 else if (tipousuario == "MEDICO")
                 {
-                    listaConsultaBuscada = ctx.Consulta.ToList().FindAll(c => c.IdMedico == idrecebido);
+                    Medico medicoBuscado = ctx.Medico.ToList().Find(c => c.IdUsuario == idrecebido  );
+                    listaConsultaBuscada = ctx.Consulta.Where(c => c.IdMedico == medicoBuscado.Id).ToList();
                 }
                 else
                 {
-                    listaConsultaBuscada = ctx.Consulta.ToList().FindAll(c => c.IdProntuario == idrecebido);
+                    Prontuario prontuarioBuscado = ctx.Prontuario.ToList().Find(c => c.IdUsuario == idrecebido);
+                    listaConsultaBuscada = ctx.Consulta.Where(c => c.IdProntuario == prontuarioBuscado.Id).ToList();
+                   
                 }
                                  
                 return listaConsultaBuscada;

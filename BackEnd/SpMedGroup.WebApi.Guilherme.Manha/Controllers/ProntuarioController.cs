@@ -22,7 +22,7 @@ namespace SpMedGroup.WebApi.Guilherme.Manha.Controllers
             ProntuarioRepositorio = new ProntuarioRepositorio();
         }
 
-        [Authorize(Roles = "ADMINISTRADOR")]
+        [Authorize(Roles = "ADMINISTRADOR , MEDICO")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -45,12 +45,12 @@ namespace SpMedGroup.WebApi.Guilherme.Manha.Controllers
                 ProntuarioRepositorio.Cadastrar(prontuario);
                 return Ok(new {mensagem = "Prontuario Cadastrado!"});
             }
-            catch(SystemException ex)
+            catch(Exception ex)
             {
                 return BadRequest(ex.Message);
-            }
-            
+            }       
         }
+
         [Authorize(Roles = "ADMINISTRADOR, MEDICO")]
         [HttpPut]
         public IActionResult Alterar(Prontuario prontuario)

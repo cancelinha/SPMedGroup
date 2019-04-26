@@ -16,7 +16,7 @@ namespace SpMedGroup.WebApi.Guilherme.Manha.Repositorios
                 return ctx.Prontuario.ToList();
             }
         }
-
+        
         public void Cadastrar(Prontuario prontuario)
         {
             using(SpMedGroupContext ctx = new SpMedGroupContext())
@@ -56,6 +56,5 @@ namespace SpMedGroup.WebApi.Guilherme.Manha.Repositorios
             }
             return prontuario;
         }
-
     }
 }

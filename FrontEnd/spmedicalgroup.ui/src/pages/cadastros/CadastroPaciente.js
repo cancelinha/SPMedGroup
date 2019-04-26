@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 
 class CadastroPaciente extends Component {
     constructor() {
@@ -7,75 +8,40 @@ class CadastroPaciente extends Component {
 
         this.state = {
             nome: "",
-            rg: "",
             cpf: "",
-            dataNascimento: "",
-            telefone: "",
+            rg: "",
+            endereco: "",
             idUsuario: "",
-            rua: "",
-            bairro: "",
-            cidade: "",
-            estado: "",
-            cep: ""
+
         }
-        
-        this.atualizarNome = this.atualizarNome.bind(this);
-        this.atualizarRg = this.atualizarRg.bind(this);
-        this.atualizarCpf = this.atualizarCpf.bind(this);
-        this.atualizarDataNascimento = this.atualizarDataNascimento.bind(this);
-        this.atualizarTelefone = this.atualizarTelefone.bind(this);
-        this.atualizarIdUsuario = this.atualizarIdUsuario.bind(this);
-        this.atualizarRua = this.atualizarRua.bind(this);
-        this.atualizarBairro = this.atualizarBairro.bind(this);
-        this.atualizarCidade = this.atualizarCidade.bind(this);
-        this.atualizarEstado = this.atualizarEstado.bind(this);
-        this.atualizarCep = this.atualizarCep.bind(this);
+
+        this.atualizarnome = this.atualizarnome.bind(this);
+        this.atualizarcpf = this.atualizarcpf.bind(this);
+        this.atualizarrg = this.atualizarrg.bind(this);
+        this.atualizarendereco = this.atualizarendereco.bind(this);
+        this.atualizaridUsuario = this.atualizaridUsuario.bind(this);
+
     }
 
     //Pegar o valor que usuario digitar
-    atualizarNome(event) {
+    atualizarnome(event) {
         this.setState({ nome: event.target.value });
     }
 
-    atualizarRg(event) {
-        this.setState({ rg: event.target.value });
-    }
-
-    atualizarCpf(event) {
+    atualizarcpf(event) {
         this.setState({ cpf: event.target.value });
     }
 
-    atualizarDataNascimento(event) {
-        this.setState({ dataNascimento: event.target.value });
+    atualizarrg(event) {
+        this.setState({ rg: event.target.value });
     }
-
-    atualizarTelefone(event) {
-        this.setState({ telefone: event.target.value });
+    atualizarendereco(event) {
+        this.setState({ endereco: event.target.value });
     }
-
-    atualizarIdUsuario(event) {
+    atualizaridUsuario(event) {
         this.setState({ idUsuario: event.target.value });
     }
 
-    atualizarRua(event) {
-        this.setState({ rua: event.target.value });
-    }
-
-    atualizarBairro(event) {
-        this.setState({ bairro: event.target.value });
-    }
-
-    atualizarCidade(event) {
-        this.setState({ cidade: event.target.value });
-    }
-
-    atualizarEstado(event) {
-        this.setState({ estado: event.target.value });
-    }
-
-    atualizarCep(event) {
-        this.setState({ cep: event.target.value });
-    }
 
     //Cadastra o Prontuario com os dado passados pelo paciente
     cadastrarPaciente(event) {
@@ -83,39 +49,56 @@ class CadastroPaciente extends Component {
 
         let prontuario = {
             nome: this.state.nome,
-            rg: this.state.rg,
             cpf: this.state.cpf,
-            dataNascimento: this.state.dataNascimento,
-            telefone: this.state.telefone,
+            rg: this.state.rg,
+            endereco: this.state.endereco,
             idUsuario: this.state.idUsuario,
-            rua: this.state.rua,
-            bairro: this.state.bairro,
-            cidade: this.state.cidade,
-            estado: this.state.estado,
-            cep: this.state.cep,
-        }
 
-        Axios.post('http://localhost:5000/api/Prontuarios', {
-            prontuario
-        })
-        .catch(erro => console.log(erro))
+
+        }
+        // TODO arrumar daqui pra baixo
+        // console.log(prontuario)
+        Axios({
+            method: 'POST',
+            url: 'http://localhost:5000/api/Prontuario',
+            data: prontuario,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + localStorage.getItem("userautent-token-spmedicalgroup")
+            }
+        }).catch(erro => console.log(erro))
+
     }
+    // Axios({method: 'POST',
+    // url: 'http://localhost:5000/api/Prontuario',
+    // data: {prontuario},
+    // headers: {
+    //  "Content-Type": "application/json",
+    //  "Authorization": 'Bearer ' + localStorage.getItem("userautent-token-spmedicalgroup")
+    // }
+    // }).catch(erro => console.log(erro))}
+    //     Axios.post('http://localhost:5000/api/Prontuario', {
+    //         method: "POST",
+    //         data: {prontuario : this.state.prontuario},
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Authorization": 'Bearer ' + localStorage.getItem("userautent-token-spmedicalgroup")
+
+    //         }
+    //     })
+    //     .catch(erro => console.log(erro))
+    // }
 
     render() {
         return (
             <div>
                 <form onSubmit={this.cadastrarPaciente.bind(this)}>
-                    <input type="text" placeholder="Nome" value={this.state.nome} onChange={this.atualizarNome} />
-                    <input type="text" placeholder="RG" value={this.state.rg} onChange={this.atualizarRg} />
-                    <input type="text" placeholder="CPF" value={this.state.cpf} onChange={this.atualizarCpf} />
-                    <input type="text" placeholder="DataNascimento" value={this.state.dataNascimento} onChange={this.atualizarDataNascimento} />
-                    <input type="text" placeholder="Telefone" value={this.state.telefone} onChange={this.atualizarTelefone} />
-                    <input type="text" placeholder="IdUsuario" value={this.state.idUsuario} onChange={this.atualizarIdUsuario} />
-                    <input type="text" placeholder="Rua" value={this.state.rua} onChange={this.atualizarRua} />
-                    <input type="text" placeholder="Bairro" value={this.state.bairro} onChange={this.atualizarBairro} />
-                    <input type="text" placeholder="Cidade" value={this.state.cidade} onChange={this.atualizarCidade} />
-                    <input type="text" placeholder="Estado" value={this.state.estado} onChange={this.atualizarEstado} />
-                    <input type="text" placeholder="CEP" value={this.state.cep} onChange={this.atualizarCep} />
+                    <input type="text" placeholder="Nome" value={this.state.nome} onChange={this.atualizarnome} />
+                    <input type="text" placeholder="CPF" value={this.state.cpf} onChange={this.atualizarcpf} />
+                    <input type="text" placeholder="RG" value={this.state.rg} onChange={this.atualizarrg} />
+                    <input type="text" placeholder="Endereço" value={this.state.endereco} onChange={this.atualizarendereco} />
+                    <input type="text" placeholder="IdUsuario" value={this.state.idUsuario} onChange={this.atualizaridUsuario} />
+
 
                     <button type="submit">Cadastrar</button>
                 </form>
