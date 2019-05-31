@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
+import "../../assets/css/Cads_Paciente.css"
+
+
 
 class CadastroPaciente extends Component {
     constructor() {
@@ -91,8 +94,12 @@ class CadastroPaciente extends Component {
 
     render() {
         return (
-            <div>
+            <div className="up">
+                 <h1>SPMedicalGroup</h1>
+                 <h2>Cadastro de Pacientes</h2>
+                <h3>Preencha os campos abaixo para cadastrar um novo Paciente:</h3>
                 <form onSubmit={this.cadastrarPaciente.bind(this)}>
+                <div className="inputs">
                     <input type="text" placeholder="Nome" value={this.state.nome} onChange={this.atualizarnome} />
                     <input type="text" placeholder="CPF" value={this.state.cpf} onChange={this.atualizarcpf} />
                     <input type="text" placeholder="RG" value={this.state.rg} onChange={this.atualizarrg} />
@@ -101,6 +108,7 @@ class CadastroPaciente extends Component {
 
 
                     <button type="submit">Cadastrar</button>
+                    </div>
                 </form>
             </div>
         )

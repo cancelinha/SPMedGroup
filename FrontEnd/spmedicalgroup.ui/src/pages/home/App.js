@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import "../home/App.css"
 class App extends Component{
     constructor(){
         super();
@@ -9,7 +9,9 @@ class App extends Component{
         return ( 
             <div className="container">
             <h1>SPMedicalGroup</h1>
-            <h2>Home</h2>
+            {/* <h2>Home</h2> */}
+            <h3>Seja Bem-Vindo Administrador</h3>
+            <p>O que dejesa executar:</p>
             <div className="Linkagem">
             <a href="/ListagemUsuarios">Listar os Usuarios </a>
             <a href="/ListagemConsultas">Listar as Consultas</a>

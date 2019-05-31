@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
+import { parseJwt } from "../../services/auth";
+import "../../assets/css/Con_Cadastro.css"
+import "../../assets/css/Cads_Consulta.css"
+
+
 
 class CadastroConsulta extends Component {
     constructor() {
@@ -12,7 +17,8 @@ class CadastroConsulta extends Component {
             data: "",
             idStatus: "",
             descricao: "",
-
+            medicos: [],
+            prontuarios: []
         }
 
         this.atualizaridProntuario = this.atualizaridProntuario.bind(this);
@@ -42,6 +48,19 @@ class CadastroConsulta extends Component {
         this.setState({ descricao: event.target.value });
     }
 
+    // lista todos os prontuarios
+    listarProntuarios() {
+        fetch('http://localhost:5000/api/Prontuario', {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + localStorage.getItem("userautent-token-spmedicalgroup")
+            }
+        })
+            .then(resposta => resposta.json())
+            .then(data => this.setState({ prontuarios: data }))
+            .catch(erro => console.log(erro))
+    }
 
     //Cadastra o Prontuario com os dado passados pelo paciente
     cadastrarConsulta(event) {
@@ -52,13 +71,11 @@ class CadastroConsulta extends Component {
             idMedico: this.state.idMedico,
             data: this.state.data,
             idStatus: this.state.idStatus,
-            descricao: this.state.descricao,
-
-
+            descricao: this.state.descricao
         }
         // TODO arrumar daqui pra baixo
-        // console.log(prontuario)
-        Axios({
+        console.log(prontuario)
+         Axios({
             method: 'POST',
             url: 'http://localhost:5000/api/Consulta',
             data: prontuario,
@@ -66,43 +83,88 @@ class CadastroConsulta extends Component {
                 "Content-Type": "application/json",
                 "Authorization": 'Bearer ' + localStorage.getItem("userautent-token-spmedicalgroup")
             }
-        }).catch(erro => console.log(erro))
+        })
+        .then(data => {
+            console.log(data.status)
+            if(data.status == 200) {                
+                if(parseJwt().TipoUsuario == "ADMINISTRADOR"){
+                    this.props.history.push("/Home");
+                } else if (parseJwt().TipoUsuario == "MEDICO"){
+                    this.props.history.push("/MedicoConsultas");
+                } else if (parseJwt().TipoUsuario == "PACIENTE"){
+                    this.props.history.push("/PacienteConsultas");
+                }
+            };
+        })
+        .catch(erro => console.log(erro))
 
     }
-    // Axios({method: 'POST',
-    // url: 'http://localhost:5000/api/Prontuario',
-    // data: {prontuario},
-    // headers: {
-    //  "Content-Type": "application/json",
-    //  "Authorization": 'Bearer ' + localStorage.getItem("userautent-token-spmedicalgroup")
-    // }
-    // }).catch(erro => console.log(erro))}
-    //     Axios.post('http://localhost:5000/api/Prontuario', {
-    //         method: "POST",
-    //         data: {prontuario : this.state.prontuario},
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Authorization": 'Bearer ' + localStorage.getItem("userautent-token-spmedicalgroup")
 
-    //         }
-    //     })
-    //     .catch(erro => console.log(erro))
-    // }
+    // lista todas os medicos
+    listarMedicos() {
+        fetch('http://localhost:5000/api/Medico', {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + localStorage.getItem("userautent-token-spmedicalgroup")
+            }
+        })
+            .then(resposta => resposta.json())
+            .then(data => this.setState({ medicos: data }))
+            .catch(erro => console.log(erro))
+    }
+
+    
+    // carrega o metodo
+    componentDidMount() {
+        this.listarMedicos();
+        this.listarProntuarios();
+    }
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.cadastrarConsulta.bind(this)}>
-                    <input type="text" placeholder="IdProntuario" value={this.state.idProntuario} onChange={this.atualizaridProntuario} />
-                    <input type="text" placeholder="IdMedico" value={this.state.idMedico} onChange={this.atualizaridMedico} />
-                    <input type="text" placeholder="Data" value={this.state.data} onChange={this.atualizardata} />
-                    <input type="text" placeholder="IdStatus" value={this.state.idStatus} onChange={this.atualizaridStatus} />
-                    <input type="text" placeholder="Descricao" value={this.state.descricao} onChange={this.atualizardescricao} />
+            <div className="All">
+                <h1>SPMedicalGroup</h1>
+                <h2>Cadastro de Consultas</h2>
+                <h3>Preencha os campos abaixo para cadastrar uma nova consulta:</h3>
+                <div className="inputs">
+
+                    <form onSubmit={this.cadastrarConsulta.bind(this)}>
+                        <select className="" type="text" required value={this.state.idProntuario} onChange={this.atualizaridProntuario}>
+                        <option value="" selected disabled hidden>Selecione</option>
+                            {
+                                this.state.prontuarios.map((prontuario) => {
+                                    return (
+                                        <option key={prontuario.id} value={prontuario.id}>{prontuario.nome}</option>
+                                    );
+                                })
+                            }
+                        </select>
+                        <select className="" type="text" required value={this.state.idMedico} onChange={this.atualizaridMedico}>
+                        <option value="" selected disabled hidden>Selecione</option>
+                            {
+                               this.state.medicos.map((medico) => {
+                                    return (
+                                        <option key={medico.id} value={medico.id}>{medico.nome}</option>
+                                    );
+                                })
+                            }
+                        </select>
+                        <input className="" type="date" placeholder="Data" value={this.state.data} onChange={this.atualizardata} />
+                        <select className="" type="text" placeholder="Status" value={this.state.idStatus} onChange={this.atualizaridStatus} >
+                            <option value="" selected disabled hidden>Selecione</option>
+                            <option value="1" defaultValue>Agendada</option>
+                            <option value="2" defaultValue>Realizada</option>
+                            <option value="3" defaultValue>Cancelada</option>
+                        </select>
+                        <input className="" type="text" placeholder="Descricao" value={this.state.descricao} onChange={this.atualizardescricao} />
 
 
-                    <button type="submit">Cadastrar</button>
-                </form>
-            </div>
+                        <button type="submit">Cadastrar</button>
+                    </form>
+                </div>
+
+            </div >
         )
     }
 }

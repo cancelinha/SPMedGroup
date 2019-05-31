@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import { parseJwt } from "../../services/auth";
+import "../../assets/css/Login.css"
 
 class Login extends Component {
     constructor() {
@@ -48,12 +49,19 @@ class Login extends Component {
 
     render() {
         return (
+            <div className="all">
             <form onSubmit={this.efetuarLogin.bind(this)}>
-                <input type="email" placeholder="Email:" value={this.state.email} onChange={this.atualizarEmail}/>
+            <h1>SPMedicalGroup</h1>
+            <h2>Seja Bem Vindo ao SPMedicalGroup</h2>
+            <h3>Insira as informações solicitadas abaixo e faça login:</h3>
+            <div className="inputs">
+            <p>Login</p>
+                <input type="email" placeholder="Email" value={this.state.email} onChange={this.atualizarEmail}/>
                 <input type="password" placeholder="Senha" value={this.state.senha} onChange={this.atualizarSenha}/>
-
-                <button type="submit">Entrar</button>
+                <button type="submit">login</button>
+            </div>
             </form>
+            </div>
         )
     }
 }

@@ -65,8 +65,6 @@ const Routing = (
                 <Route path="/Home" component={App} />
                 <Route path="/ListagemConsultas" component={ListagemConsultas}/>
                 <Route path="/ListagemUsuarios" component={ListagemUsuarios}/>
-                 {/* <Route path="" component={}/>  */}
-                
                 {/* <Route path="/DashBoard" component={DashBoard} />
                  */}
             </Switch>

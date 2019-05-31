@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../../services/logout";
+import Table from "../../../node_modules/react-bootstrap/Table"
+import "../../../node_modules/bootstrap/dist/css/bootstrap.css"
 
 class ListagemConsultas extends Component {
     constructor() {
@@ -11,8 +13,6 @@ class ListagemConsultas extends Component {
         }     
         
     }
-
-
     // lista todas as consultas
     listarTodasConsultas() {
         fetch('http://localhost:5000/api/Consulta', {
@@ -24,34 +24,25 @@ class ListagemConsultas extends Component {
         })
             .then(resposta => resposta.json())
             .then(data => this.setState({ consultas: data }))
-            // .then(data => {
-            //     if (data.status == 200) {
-            //         this.setState({ consultas: data })
-            //     }
-            // })
             .catch(erro => console.log(erro))
     }
-
-
     // carrega o metodo
     componentDidMount() {
         this.listarTodasConsultas();
     }
-
- 
-
     render() {
         return (
-            <div>
-                <table>
+            <div className="all">
+                        <h1>Lista Atualizada das Consultas:</h1>
+                 <Table striped bordered hover size="sm">
                     <tbody> 
                         <tr>
-                            <th>Id</th>
-                            <th>Id Prontuario</th>
-                            <th>Nome Medico</th>
-                            <th>Data</th>
+                            <th>ID</th>
+                            <th>ID do Prontuário</th>
+                            <th>Nome do Medico</th>
+                            <th>Data da Consulta</th>
                             <th>Status</th>
-                            <th>Descricao</th>
+                            <th>Descrição</th>
                         </tr>
 
                         {
@@ -69,7 +60,7 @@ class ListagemConsultas extends Component {
                             } )
                         }
                     </tbody>
-                </table>
+                </Table>
                 <Link onClick={logout}>Sair</Link>
             </div>
         );

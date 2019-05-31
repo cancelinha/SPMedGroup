@@ -1,0 +1,29 @@
+body{
+    background-color: bisque;
+}
+.all th {
+    color: gray ;
+    text-align: center;
+    font-size: 1.5rem;  
+    }
+a:hover{
+ color: chocolate;
+text-decoration: none; 
+    }
+.all tr {
+       
+ color:chocolate;
+ font-size: 1.2rem;      
+        }
+        
+.all td{
+       
+color:gray;
+font-size: 1rem;   
+ text-align: center;  
+    }
+    .all h1{
+        font-size: 2.5rem;
+        color: gray
+    }
+            

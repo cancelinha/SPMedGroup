@@ -1,0 +1,30 @@
+body{
+    background-color: bisque;
+}
+
+
+.all{
+padding: 1rem;
+
+}
+
+.all th {
+   
+color: gray ;
+text-align: center;
+font-size: 1.5rem;  
+}
+
+.all tr {
+   
+    color:chocolate;
+    font-size: 1.2rem;      
+    }
+    
+    .all td{
+   
+        color:gray;
+        font-size: 1rem;   
+        text-align: center;  
+        }
+        

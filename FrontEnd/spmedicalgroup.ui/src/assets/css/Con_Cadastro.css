@@ -1,0 +1,8 @@
+.All{
+     display: fleX;
+     
+}
+
+.formulario{
+    flex-direction: column;
+}

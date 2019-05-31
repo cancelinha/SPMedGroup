@@ -40,24 +40,24 @@ namespace SpMedGroup.WebApi.Guilherme.Manha
             ).AddJwtBearer("JwtBearer", options =>
             {
 
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
 
-                    ValidateIssuer = true,
+                        ValidateIssuer = true,
 
-                    ValidateAudience = true,
+                        ValidateAudience = true,
 
-                    ValidateLifetime = true,
+                        ValidateLifetime = true,
 
-                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("spmedgroup-chave-autenticacao")),
+                        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("spmedgroup-chave-autenticacao")),
 
-                    ClockSkew = TimeSpan.FromMinutes(30),
+                        ClockSkew = TimeSpan.FromMinutes(30),
 
-                    ValidIssuer = "SpMedGroup.WebApi",
+                        ValidIssuer = "SpMedGroup.WebApi",
 
-                    ValidAudience = "SpMedGroup.WebApi"
-                };
-            });
+                        ValidAudience = "SpMedGroup.WebApi"
+                    };
+                });
 
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

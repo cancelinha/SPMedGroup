@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../../services/logout";
+import "../../assets/css/List_Users.css"
+import "../../../node_modules/bootstrap/dist/css/bootstrap.css"
+import Table from "../../../node_modules/react-bootstrap/Table"
 
 class ListagemUsuarios extends Component {
     constructor() {
@@ -41,12 +44,14 @@ class ListagemUsuarios extends Component {
  
     render() {
         return (
-            <div>
-                <table>
+            <div className="all">
+            <h1>Lista Atualizada dos Usuários:</h1>
+                <Table striped bordered hover size="sm">
+                    
                     <tbody> 
                         <tr>
-                            <th>Id</th>
-                            <th>IdTipoUsuario</th>
+                            <th>ID do Usuário</th>
+                            <th>ID Tipo de Usuário</th>
                             <th>Email</th>
                             <th>Senha</th>
                            
@@ -66,7 +71,7 @@ class ListagemUsuarios extends Component {
                             })
                         }
                     </tbody>
-                </table>
+                </Table>
                 <Link onClick={logout}>Sair</Link>
             </div>
         );
