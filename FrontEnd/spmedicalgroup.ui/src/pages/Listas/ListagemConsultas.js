@@ -13,9 +13,12 @@ class ListagemConsultas extends Component {
         }     
         
     }
+    logout() {       
+        localStorage.removeItem("userautent-token-spmedicalgroup");        
+    }
     // lista todas as consultas
     listarTodasConsultas() {
-        fetch('http://localhost:5000/api/Consulta', {
+        fetch('http://192.168.3.215:5000/api/Consulta', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -38,7 +41,7 @@ class ListagemConsultas extends Component {
                     <tbody> 
                         <tr>
                             <th>ID</th>
-                            <th>ID do Prontuário</th>
+                            <th>Nome do Prontuário</th>
                             <th>Nome do Medico</th>
                             <th>Data da Consulta</th>
                             <th>Status</th>
@@ -50,7 +53,7 @@ class ListagemConsultas extends Component {
                                 return (
                                     <tr key={consulta.id}>
                                         <td>{consulta.id}</td>
-                                        <td>{consulta.idProntuario}</td>
+                                        <td>{consulta.idProntuarioNavigation.nome}</td>
                                         <td>{consulta.idMedicoNavigation.nome}</td>
                                         <td>{consulta.data.replace("T", " ").split(".")[0]}</td>
                                         <td>{consulta.idStatusNavigation.situacao}</td>
@@ -61,7 +64,9 @@ class ListagemConsultas extends Component {
                         }
                     </tbody>
                 </Table>
-                <Link onClick={logout}>Sair</Link>
+                <Link to="/">
+                        <button onClick={this.logout}>Sair</button>
+                </Link>
             </div>
         );
     }

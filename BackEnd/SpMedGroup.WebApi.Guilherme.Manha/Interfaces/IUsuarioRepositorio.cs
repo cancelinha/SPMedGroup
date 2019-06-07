@@ -8,7 +8,7 @@ namespace SpMedGroup.WebApi.Guilherme.Manha.Interfaces
 {
     public interface IUsuarioRepositorio
     {
-        List<Usuario> Listar();
+        List<Usuario> listaUsuarios();
         Usuario BuscarEmailSenha(string email, string senha);
         Usuario BuscarUsuario(int usuarioId);
         void Cadastrar(Usuario usuario);

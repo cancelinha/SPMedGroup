@@ -1,6 +1,29 @@
 body{
     background-color: bisque;
 }
+.all{
+    padding: 1rem;
+}
+@media screen and ( max-width: 720px){
+    .all h1{
+        font-size: 40px;
+    }
+    .all th{
+        font-size: 15px !important;
+    }
+    .all td{
+        font-size: 10px !important;
+    }
+    .table{
+        width: 100% !important;
+    }
+}
+@media screen and ( max-width: 520px){
+    .all h1{
+        font-size: 25px! important;
+        margin: auto !important;
+    }
+}
 .all th {
     color: gray ;
     text-align: center;

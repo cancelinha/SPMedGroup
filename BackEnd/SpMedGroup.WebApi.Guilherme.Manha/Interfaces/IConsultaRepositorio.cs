@@ -11,6 +11,6 @@ namespace SpMedGroup.WebApi.Guilherme.Manha.Interfaces
         void Cadastrar(Consulta consulta);
         void Deletar(int id);
         void Alterar(Consulta consulta , int Id);
-        List<Consulta> BuscarConsulta(int idrecebido, string tipousuario);
+        List<Consulta> ListarConsultas(int idrecebido, string tipousuario);
     }
 }

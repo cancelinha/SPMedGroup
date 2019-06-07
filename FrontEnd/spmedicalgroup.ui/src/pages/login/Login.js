@@ -26,8 +26,8 @@ class Login extends Component {
 
     efetuarLogin(event){
         event.preventDefault();
-
-        Axios.post('http://localhost:5000/api/Login', {
+        
+        Axios.post('http://192.168.3.215:5000/api/Login', {
             email : this.state.email,
             senha : this.state.senha
         })
@@ -51,7 +51,7 @@ class Login extends Component {
         return (
             <div className="all">
             <form onSubmit={this.efetuarLogin.bind(this)}>
-            <h1>SPMedicalGroup</h1>
+            <h1>SP MedicalGroup</h1>
             <h2>Seja Bem Vindo ao SPMedicalGroup</h2>
             <h3>Insira as informações solicitadas abaixo e faça login:</h3>
             <div className="inputs">

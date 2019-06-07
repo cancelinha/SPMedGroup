@@ -10,15 +10,18 @@ class ListagemUsuarios extends Component {
         super();
         this.state = {
             usuarios: [],
-           
-        }     
-        
+
+        }
+
     }
 
+    logout() {
+        localStorage.removeItem("userautent-token-spmedicalgroup");
+    }
 
     // lista todas as usuarios
     listarTodosUsuarios() {
-        fetch('http://localhost:5000/api/Usuarios', {
+        fetch('http://192.168.3.215:5000/api/Usuarios', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -39,40 +42,45 @@ class ListagemUsuarios extends Component {
     // carrega o metodo
     componentDidMount() {
         this.listarTodosUsuarios();
+
     }
 
- 
+
     render() {
         return (
             <div className="all">
-            <h1>Lista Atualizada dos Usuários:</h1>
-                <Table striped bordered hover size="sm">
-                    
-                    <tbody> 
-                        <tr>
-                            <th>ID do Usuário</th>
-                            <th>ID Tipo de Usuário</th>
-                            <th>Email</th>
-                            <th>Senha</th>
-                           
-                        </tr>
+                <h1>Lista Atualizada dos Usuários:</h1>
+                <div class="table">
+                    <Table striped bordered hover size="sm">
 
-                        {
-                            this.state.usuarios.map(usuario => {
-                                return (
-                                    <tr key={usuario.idUsuario}>
-                                        <td>{usuario.idUsuario}</td>
-                                        <td>{usuario.idTipoUsuario}</td>
-                                        <td>{usuario.email}</td>
-                                        <td>{usuario.senha}</td>
-                                       
-                                    </tr>
-                                );
-                            })
-                        }
-                    </tbody>
-                </Table>
-                <Link onClick={logout}>Sair</Link>
+                        <tbody>
+                            <tr>
+                                <th>ID do Usuário</th>
+                                <th>Tipo Usuário</th>
+                                <th>Email</th>
+                                <th>Senha</th>
+
+                            </tr>
+
+                            {
+                                this.state.usuarios.map(usuario => {
+                                    return (
+                                        <tr key={usuario.idUsuario}>
+                                            <td>{usuario.idUsuario}</td>
+                                            <td>{usuario.idTipoUsuarioNavigation.nome}</td>
+                                            <td>{usuario.email}</td>
+                                            <td>{usuario.senha}</td>
+
+                                        </tr>
+                                    );
+                                })
+                            }
+                        </tbody>
+                    </Table>
+                    <Link to="/">
+                        <button onClick={this.logout}>Sair</button>
+                    </Link>
+                </div>
             </div>
         );
     }

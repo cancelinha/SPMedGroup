@@ -50,7 +50,7 @@ class CadastroConsulta extends Component {
 
     // lista todos os prontuarios
     listarProntuarios() {
-        fetch('http://localhost:5000/api/Prontuario', {
+        fetch('http://192.168.3.215:5000/api/Prontuario', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -77,7 +77,7 @@ class CadastroConsulta extends Component {
         console.log(prontuario)
          Axios({
             method: 'POST',
-            url: 'http://localhost:5000/api/Consulta',
+            url: 'http://192.168.3.215:5000/api/Consulta',
             data: prontuario,
             headers: {
                 "Content-Type": "application/json",
@@ -102,7 +102,7 @@ class CadastroConsulta extends Component {
 
     // lista todas os medicos
     listarMedicos() {
-        fetch('http://localhost:5000/api/Medico', {
+        fetch('http://192.168.3.215:5000/api/Medico', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

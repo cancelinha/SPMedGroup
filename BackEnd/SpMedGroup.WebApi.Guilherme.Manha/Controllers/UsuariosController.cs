@@ -29,7 +29,8 @@ namespace SpMedGroup.WebApi.Guilherme.Manha.Controllers
         {
             try
             {
-                return Ok(UsuarioRepositorio.Listar());
+                List<Usuario> listaUsuarios = UsuarioRepositorio.listaUsuarios();
+                return Ok(listaUsuarios);
             }
             catch (System.Exception ex)
             {
@@ -63,7 +64,7 @@ namespace SpMedGroup.WebApi.Guilherme.Manha.Controllers
             try
             {
                 UsuarioRepositorio.Alterar(usuario);
-                return Ok(UsuarioRepositorio.Listar());
+                return Ok(UsuarioRepositorio.listaUsuarios());
             }
             catch (Exception ex)
             {

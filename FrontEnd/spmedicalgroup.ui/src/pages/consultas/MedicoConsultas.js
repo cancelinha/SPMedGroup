@@ -17,10 +17,12 @@ class MedicoConsultas extends Component {
     }
 
     
-
+    logout() {
+        localStorage.removeItem("userautent-token-spmedicalgroup");
+    }
     // lista todas as consultas
     listarConsultas() {
-        fetch('http://localhost:5000/api/Consulta', {
+        fetch('http://192.168.3.215:5000/api/Consulta', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -51,7 +53,7 @@ class MedicoConsultas extends Component {
     incluirDescricao(event) {
         event.preventDefault();
             
-        fetch('http://localhost:5000/AlterarDescricaoConsulta', {
+        fetch('http://192.168.3.215:5000/AlterarDescricaoConsulta', {
             method: "PUT",
             body: JSON.stringify({
                 id: this.state.idDescricaoIncluir,
@@ -105,7 +107,9 @@ class MedicoConsultas extends Component {
                     <button type="submit">Editar</button>
                 </form>
 
-                <Link to="/" onClick={logout}>Sair</Link>
+                <Link to="/">
+                        <button onClick={this.logout}>Sair</button>
+                </Link>
             </div>
         );
     }

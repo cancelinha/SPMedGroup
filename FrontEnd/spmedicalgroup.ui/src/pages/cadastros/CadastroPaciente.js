@@ -45,7 +45,7 @@ class CadastroPaciente extends Component {
         this.setState({ idUsuario: event.target.value });
     }
 
-
+    
     //Cadastra o Prontuario com os dado passados pelo paciente
     cadastrarPaciente(event) {
         event.preventDefault();
@@ -63,7 +63,7 @@ class CadastroPaciente extends Component {
         // console.log(prontuario)
         Axios({
             method: 'POST',
-            url: 'http://localhost:5000/api/Prontuario',
+            url: 'http://192.168.3.215:5000/api/Prontuario',
             data: prontuario,
             headers: {
                 "Content-Type": "application/json",

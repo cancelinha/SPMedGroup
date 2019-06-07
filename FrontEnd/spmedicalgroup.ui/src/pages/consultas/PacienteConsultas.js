@@ -16,10 +16,12 @@ class PacienteConsultas extends Component {
         this.atualizarIdDescricaoIncluir = this.atualizarIdDescricaoIncluir.bind(this);
     }
 
-
+    logout() {
+        localStorage.removeItem("userautent-token-spmedicalgroup");
+    }
     // lista todas as consultas
     listarConsultas() {
-        fetch('http://localhost:5000/api/Consulta', {
+        fetch('http://192.168.3.215:5000/api/Consulta', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -81,7 +83,9 @@ class PacienteConsultas extends Component {
                         }
                     </tbody>
                 </table>
-                <Link onClick={logout}>Sair</Link>
+                <Link to="/">
+                        <button onClick={this.logout}>Sair</button>
+                </Link>
             </div>
         );
     }

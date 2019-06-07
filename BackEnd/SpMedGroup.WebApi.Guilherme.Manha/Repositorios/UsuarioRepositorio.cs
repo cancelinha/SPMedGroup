@@ -13,11 +13,32 @@ namespace SpMedGroup.WebApi.Guilherme.Manha.Repositorios
     {
         private string StringConexao = "Data Source=.\\SqlExpress; initial catalog = SpMedicalGroup; user id=sa; pwd=132";
 
-        public List<Usuario> Listar()
+        public List<Usuario> listaUsuarios()
         {
-            using (SpMedGroupContext ctx = new SpMedGroupContext())
+            string QuerySelect = @"SELECT U.IDUSUARIO AS ID_USUARIO,TU.NOME AS TIPO_USUARIO,TU.ID AS ID_TIPO_USUARIO, U.EMAIL,U.SENHA FROM USUARIO U JOIN TIPO_USUARIO TU ON U.ID_TIPO_USUARIO = TU.ID";
+            List<Usuario> listaUsuarios = new List<Usuario>();
+
+            using (SqlConnection con = new SqlConnection(StringConexao))
             {
-                return ctx.Usuario.Include(C => C.Medico).ToList();
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(QuerySelect, con))
+                {
+                    SqlDataReader sdr = cmd.ExecuteReader();
+
+                    while (sdr.Read())
+                    {
+                        Usuario usuario = new Usuario();
+                        usuario.IdUsuario = Convert.ToInt32(sdr["ID_USUARIO"]);
+                        usuario.IdTipoUsuario = Convert.ToInt32(sdr["ID_TIPO_USUARIO"]);
+                        usuario.IdTipoUsuarioNavigation = new TipoUsuario();
+                        usuario.IdTipoUsuarioNavigation.Nome = sdr["TIPO_USUARIO"].ToString();
+                        usuario.Senha = sdr["SENHA"].ToString();
+                        usuario.Email = sdr["EMAIL"].ToString();
+                        listaUsuarios.Add(usuario);
+                    }
+                }
+
+                return listaUsuarios;
             }
         }
 
